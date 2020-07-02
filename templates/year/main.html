@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+    工效提高网站
+{% endblock title %}
+
+{% block content %}
+    <h2 align="center">万年历</h2><br><br>
+    <div data-provide="calendar"></div><br>
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        注意：该日历非本站主要内容，权当工具，搬运自<a href="https://github.com/year-calendar/js-year-calendar">某js日历组件</a>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+{% endblock content %}

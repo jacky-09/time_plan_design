@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+    备忘录详情
+{% endblock title %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <!-- 标题及作者 -->
+        <h1 class="col-12 mt-4 mb-4">{{ memo.title }}</h1>
+        <div class="col-12 alert alert-success">
+            <a href="#" onclick="confirm_delete()">删除便签</a>
+        </div>
+        <!-- 正文 -->
+        <div class="col-12">
+            <p>{{ memo.body | safe }}</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    // 删除文章的函数
+    function confirm_delete() {
+        // 调用layer弹窗组件
+        layer.open({
+            // 弹窗标题
+            title: "确认删除",
+            // 正文
+            content: "确认删除便签吗？",
+            // 点击确定按钮后调用的回调函数
+            yes: function(index, layero) {
+                // 指定应当前往的 url
+                location.href='{% url "memo:delete" memo.id %}'
+            },
+        })
+    }
+</script>
+{% endblock content %}
