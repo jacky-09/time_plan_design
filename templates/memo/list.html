@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+    备忘录
+{% endblock title %}
+
+{% block content %}
+<br>
+    <div class="container">
+        <div class="row">
+            <div class="col-10">
+                {% for memo in memos %}
+                <!-- 文章内容 -->
+                <div class="col-4 mb-4">
+                    <!-- 卡片容器 -->
+                    <div class="card h-100">
+                        <!-- 标题 -->
+                        <h4 class="card-header">{{ memo.title }}</h4>
+                        <!-- 摘要 -->
+                        <div class="card-body">
+                            <p class="card-text">{{ memo.body|slice:'30' | safe }}...</p>
+                        </div>
+                        <!-- 注脚 -->
+                        <div class="card-footer">
+                            <a href="{% url 'memo:detail' memo.id %}" class="btn btn-primary">查看便签</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="col">
+                <a type="button" class="btn btn-info" href="{% url 'memo:create' %}">新建便签</a>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

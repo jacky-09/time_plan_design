@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+    工作台
+{% endblock title %}
+
+{% block content %}
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            {% for timeplan in timeplans %}
+            <hr>
+            <h2><a href="{% url 'timeplan:detail' timeplan.id %}"style="color: black;" >{{ timeplan.title }}</a></h2>
+            <div>
+                <p style="color: gray;">
+                    {{ timeplan.describe | slice:'30' }}...
+                </p>
+            </div>
+            {% if timeplan.complete == False %}
+            <a role="button" class="btn btn-outline-primary btn-sm" href="{% url 'timeplan:finish' timeplan.id %}">完成工作</a>
+            <button type="button" class="btn btn-outline-secondary btn-sm" onclick="bg_not_finish()">查看报告</button>
+            {% else %}
+            <button type="button" class="btn btn-outline-secondary btn-sm" onclick="gz_not_finish()">完成工作</button>
+            <a role="button" class="btn btn-outline-warning btn-sm" href="{% url 'timeplan:report' timeplan.id %}">查看报告</a>
+            {% endif %}
+            <hr>
+            {% endfor %}
+        </div>
+        <div class="col-5">
+            <div class="col">
+                <a type="button" class="btn btn-info" href="{% url 'timeplan:create' %}">新建项目</a>
+                <a type="button" class="btn btn-info" href="{% url 'timeplan:tcreate' %}">新建项目模板</a>
+            </div>
+            <br><hr>
+            {% for template in templates %}
+            <h5>{{ template.ttitle }}</h5>
+            <a role="button" class="btn btn-outline-success btn-sm" href="{% url 'timeplan:twc' template.id %}"><i class="zi zi_plusSquare" zico="加号方形"></i></a>
+            <a role="button" class="btn btn-outline-danger btn-sm" href="{% url 'timeplan:tdelete' template.id %}"><i class="zi zi_trashalt" zico="垃圾箱竖条"></i></a>
+            <br>
+            {% endfor %}
+            <hr><br>
+            <div class="clock-place"></div>
+        </div>
+    </div>
+</div>
+<script>
+    function bg_not_finish() {
+        layer.msg('请先完成该工作，才可以查看工作报告');
+    }
+</script>
+<script>
+    function gz_not_finish() {
+        layer.msg('已完成该工作，请查看工作报告');
+    }
+</script>
+{% endblock content %}
